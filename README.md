@@ -13,10 +13,10 @@ Compile: gcc -o weather_logger main.c cJSON.c -lcurl
 Run: ./weather_logger
 
 
-# Requirements
+## Requirements
 
-## Raspberry Pi with Raspberry Pi OS
+- Raspberry Pi with Raspberry Pi OS
 
-## WeatherAPI key (sign up at https://www.weatherapi.com)
+- WeatherAPI key (sign up at https://www.weatherapi.com)
 
-## Internet connection
+- Internet connection
