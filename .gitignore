@@ -1,1 +1,4 @@
 .o weather_logger logs/
+logs/weather_log.csv
+logs/cron.log
+weather_logger
