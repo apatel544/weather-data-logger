@@ -11,6 +11,34 @@ struct MemoryStruct {
     size_t size;
 };
 
+int main(void) {
+    char *api_key = "7addccf61f8d4dd5b76225325250202"; // API KEY
+    char *location = "Los_Angeles"; // Location API will pull data for
+    char *response = NULL;
+    float temp;
+    int humidity;
+
+    for (int i = 0; i < 3; i++) { // Run 3 times for testing
+        if (fetch_weather_data(api_key, location, &response) == 0) {
+            if (parse_weather_data(response, &temp, &humidity) == 0) {
+                if (log_weather_data(temp, humidity) == 0) {
+                    printf("Logged: Temp=%.1fC, Humidity=%d%%\n", temp, humidity);
+                } else {
+                    fprintf(stderr, "Logging failed\n");
+                }
+            } else {
+                fprintf(stderr, "Parsing failed\n");
+            }
+            free(response);
+        } else {
+            fprintf(stderr, "Fetch failed\n");
+        }
+        sleep(2); // Wait 2 seconds
+    }
+
+    return 0;
+}
+
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
     size_t realsize = size * nmemb;
     struct MemoryStruct *mem = (struct MemoryStruct *)userp;
@@ -114,33 +142,5 @@ int log_weather_data(float temp, int humidity) {
     fprintf(fp, "%s,%.1f,%d\n", timestamp, temp, humidity);
     fflush(fp);
     fclose(fp);
-    return 0;
-}
-
-int main(void) {
-    char *api_key = "7addccf61f8d4dd5b76225325250202"; // API KEY
-    char *location = "Los_Angeles"; // Location API will pull data for
-    char *response = NULL;
-    float temp;
-    int humidity;
-
-    for (int i = 0; i < 3; i++) { // Run 3 times for testing
-        if (fetch_weather_data(api_key, location, &response) == 0) {
-            if (parse_weather_data(response, &temp, &humidity) == 0) {
-                if (log_weather_data(temp, humidity) == 0) {
-                    printf("Logged: Temp=%.1fC, Humidity=%d%%\n", temp, humidity);
-                } else {
-                    fprintf(stderr, "Logging failed\n");
-                }
-            } else {
-                fprintf(stderr, "Parsing failed\n");
-            }
-            free(response);
-        } else {
-            fprintf(stderr, "Fetch failed\n");
-        }
-        sleep(2); // Wait 2 seconds
-    }
-
     return 0;
 }
