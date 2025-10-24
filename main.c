@@ -166,8 +166,6 @@ int log_weather_data(float temp, int humidity) {
     fclose(fp); // Close file
     return 0; // Return success
 }
-<<<<<<< HEAD
-=======
 
 // Main program entry
 int main(void) {
@@ -198,4 +196,3 @@ int main(void) {
 
     return 0; // End program successfully
 }
->>>>>>> 53d4253debf638e069688e29afac1ecc96df206d
