@@ -25,7 +25,6 @@ struct MemoryStruct {
     size_t size; // Number of bytes in the buffer (how many pages are filled)
 };
 
-<<<<<<< HEAD
 int main(void) {
     char *api_key = "7addccf61f8d4dd5b76225325250202"; // API KEY
     char *location = "Los_Angeles"; // Location API will pull data for
@@ -58,13 +57,11 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
     size_t realsize = size * nmemb;
     struct MemoryStruct *mem = (struct MemoryStruct *)userp;
     char *ptr = realloc(mem->memory, mem->size + realsize + 1);
-=======
 // Callback function called by libcurl for each chunk of data received
 static size_t WriteCallback(void *contents, size_t size, size_t numElmBytes, void *userp) {
     size_t realsize = size * numElmBytes; // Calculate total bytes in this chunk (size per piece * number of pieces)
     struct MemoryStruct *mem = (struct MemoryStruct *)userp; // Cast userp to our MemoryStruct pointer
     char *ptr = realloc(mem->memory, mem->size + realsize + 1); // Resize the buffer to fit old data + new chunk + 1 byte for null terminator
->>>>>>> 53d4253debf638e069688e29afac1ecc96df206d
 
     if (ptr == NULL) { // Check if realloc failed (e.g., out of memory)
         fprintf(stderr, "realloc() failed\n"); // Print error to terminal
